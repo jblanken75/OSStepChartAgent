@@ -98,12 +98,7 @@
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
   &quot;googleTransformation&quot; : {
-    &quot;street&quot; : &quot;ApplicantStreetAddress&quot;,
-    &quot;locality&quot; : &quot;ApplicantCity&quot;,
-    &quot;administrative_area_level_1&quot; : &quot;ApplicantState&quot;,
-    &quot;administrative_area_level_2&quot; : &quot;ApplicantCounty&quot;,
-    &quot;country&quot; : &quot;&quot;,
-    &quot;postal_code&quot; : &quot;ApplicantPostalCode&quot;
+    &quot;country&quot; : &quot;&quot;
   },
   &quot;required&quot; : false,
   &quot;readOnly&quot; : false,
@@ -124,7 +119,7 @@
   &quot;enableGoogleMapsAutocomplete&quot; : false,
   &quot;enableLookup&quot; : false,
   &quot;disableDataFilter&quot; : false,
-  &quot;googleMapsAPIKey&quot; : &quot;AIzaSyD02SueuLAFpiDuaHWCo32pIx9gTW4wtO4&quot;,
+  &quot;googleMapsAPIKey&quot; : &quot;&quot;,
   &quot;hideMap&quot; : false,
   &quot;googleAddressCountry&quot; : &quot;us&quot;,
   &quot;useDataJson&quot; : false,
@@ -996,13 +991,7 @@
   &quot;label&quot; : &quot;Facility Address&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
-  &quot;googleTransformation&quot; : {
-    &quot;street&quot; : &quot;FacilityPhysicalAddress&quot;,
-    &quot;locality&quot; : &quot;FacilityCity&quot;,
-    &quot;administrative_area_level_1&quot; : &quot;FacilityState&quot;,
-    &quot;administrative_area_level_2&quot; : &quot;FacilityCounty&quot;,
-    &quot;postal_code&quot; : &quot;FacilityPostalCode&quot;
-  },
+  &quot;googleTransformation&quot; : { },
   &quot;required&quot; : false,
   &quot;readOnly&quot; : false,
   &quot;help&quot; : false,
@@ -1022,7 +1011,7 @@
   &quot;enableGoogleMapsAutocomplete&quot; : false,
   &quot;enableLookup&quot; : false,
   &quot;disableDataFilter&quot; : false,
-  &quot;googleMapsAPIKey&quot; : &quot;AIzaSyD02SueuLAFpiDuaHWCo32pIx9gTW4wtO4&quot;,
+  &quot;googleMapsAPIKey&quot; : &quot;&quot;,
   &quot;hideMap&quot; : false,
   &quot;googleAddressCountry&quot; : &quot;us&quot;,
   &quot;useDataJson&quot; : false,
