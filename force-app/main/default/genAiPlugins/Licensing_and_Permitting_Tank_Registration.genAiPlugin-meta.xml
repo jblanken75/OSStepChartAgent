@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPlugin xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <canEscalate>false</canEscalate>
+    <description>Use this top whenever someone explicitly states that they are performing a Licensing and Permitting Tank Registration.</description>
+    <developerName>Licensing_and_Permitting_Tank_Registration</developerName>
+    <genAiPluginInstructions>
+        <description>When returning a reply to the user, do not mention the JSON.  That&apos;s too technical of a term.</description>
+        <developerName>instruction_0_1757616044851</developerName>
+        <language xsi:nil="true"/>
+        <masterLabel>instruction_0_1757616044851</masterLabel>
+    </genAiPluginInstructions>
+    <genAiPluginInstructions>
+        <description>When reviewing the application, use these rules to determine if the application is compliant: 
+-	New aboveground storage requirements
+-	If the Listing is UL 142 then the maximum  capacity of the tank is 1500
+-	If the Tank is listed in the city of Trenton then the Tank must be made of steel
+-	If the tank is not in a flood zone then there a vault is not required
+-	The minimum distance between the tank and a building is 150
+-	All tanks must be at least 300 feet from a property line
+-	Storage tank applications take on average 14 days to approve
+-	Air Emissions applications take 21 days to approve
+-	Land applications take 15 days to approve
+-	Waste Management applications take 45 days
+-	Water applications take 7 days to approve</description>
+        <developerName>instruction_1_1757616044858</developerName>
+        <language xsi:nil="true"/>
+        <masterLabel>instruction_1_1757616044858</masterLabel>
+    </genAiPluginInstructions>
+    <genAiPluginInstructions>
+        <description>Use the provided JSON of the Omniscript to summarize the steps that have already been completed for the Omniscript.</description>
+        <developerName>instruction_2_1757616044858</developerName>
+        <language xsi:nil="true"/>
+        <masterLabel>instruction_2_1757616044858</masterLabel>
+    </genAiPluginInstructions>
+    <language>en_US</language>
+    <masterLabel>Licensing and Permitting Tank Registration</masterLabel>
+    <pluginType>Topic</pluginType>
+    <scope>Your role is to assist an applicant as they are filling out an application.  Information will be provided from the existing Omniscript and your job will be to assist and provide direction based on information that has already been provided.</scope>
+</GenAiPlugin>

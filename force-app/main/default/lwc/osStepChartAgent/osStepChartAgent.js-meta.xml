@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Omniscript Step Chart Agent</masterLabel>
+    <description>Conversational component that invokes the flow "Invoke_Agentforce_For_Agentic_Next_Best_Actions" to surface next best actions.</description>
+    <targets>
+        <target>lightning__RecordPage</target>
+        <target>lightning__AppPage</target>
+        <target>lightning__HomePage</target>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage,lightning__AppPage,lightning__HomePage,lightningCommunity__Default">
+            <property name="initialRequest" type="String" label="Initial Request" description="An initial request to send automatically on load."/>
+            <property name="containerHeight" type="Integer" label="Container Height (pixels)" default="350"/>
+            <property name="sendEndUserConversation" type="Boolean" label="Send End User Conversation" description="If true, sends messages from the end-user (customer) to the flow." default="true"/>
+            <property name="sendAgentConversation" type="Boolean" label="Send Representative Conversation" description="If true, sends messages from the agent to the flow." default="false"/>
+            <property name="flowApiName" type="String" label="Flow API Name" description="API name of the autolaunched Flow to invoke. Defaults to the packaged flow." default="Invoke_Agentforce_For_Agentic_Next_Best_Actions"/>
+        </targetConfig>
+    </targetConfigs>
+    <capabilities>
+        <capability>lightningCommunity__RelaxedCSP</capability>
+        <!--<capability>lightning__ServiceCloudVoiceToolkitApi</capability> -->
+    </capabilities>
+</LightningComponentBundle>

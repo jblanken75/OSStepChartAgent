@@ -1,0 +1,111 @@
+{
+  "edition": "Enterprise",
+  "features": [
+    "accountinspection",
+    "addcustomapps:30",
+    "addcustomobjects:30",
+    "addcustomrelationships:10",
+    "addcustomtabs:30",
+    "addinsightsquerylimit:30",
+    "analyticsadminperms",
+    "analyticsappembedded",
+    "api",
+    "assessments",
+    "caseclassification",
+    "casewrapup",
+    "chatbot",
+    "cmsunlimiteduse",
+    "communities",
+    "connectedapptoolingapi",
+    "contactstomultipleaccounts",
+    "customercommunity",
+    "customercommunitylogin",
+    "customercommunityplus",
+    "customercommunitypluslogin",
+    "datamaskuser",
+    "dataprocessingengine",
+    "defaultworkflowuser",
+    "developmentwave",
+    "docgen",
+    "docgenind",
+    "documentchecklist",
+    "einstein1aiplatform",
+    "einsteinanalyticsplus",
+    "einsteinarticlerecommendations",
+    "einsteinbuilderfree",
+    "einsteinrecommendationbuilder",
+    "einsteinsearch",
+    "enableprm",
+    "enablesetpasswordinapi",
+    "entitlements",
+    "fieldaudittrail",
+    "fieldservice:1",
+    "firsttouchenablementdate",
+    "flowsites",
+    "highvelocitysales",
+    "industriesactionplan",
+    "insightsplatform",
+    "insightssalesanalytics",
+    "insightsserviceanalytics",
+    "interaction",
+    "knowledge",
+    "lightningsalesconsole",
+    "lightningscheduler",
+    "lightningserviceconsole",
+    "liveagent",
+    "livemessage",
+    "macros",
+    "marketinguser",
+    "monthsofdatatosync",
+    "omnistudiodesigner",
+    "omnistudiometadata",
+    "omnistudioruntime",
+    "partnercommunity",
+    "personaccounts",
+    "platformcache",
+    "platformconnect:5",
+    "processbuilder",
+    "salescloudeinstein",
+    "salesforcecontentuser",
+    "salesforceidentityforcommunities",
+    "salesuser",
+    "servicecloud",
+    "serviceuser",
+    "sharedactivities",
+    "socialcustomerservice",
+    "waveplatform",
+    "workflow",
+  "Einstein1AIPlatform"],
+    
+   "orgName": "RAG No Data Cloud",
+  "settings": {
+    "accountSettings": {
+      "enableAccountTeams": true,
+      "enableRelateContactToMultipleAccounts": true
+    },
+    "communitiesSettings": {
+      "enableNetworksEnabled": true
+    },
+    "experienceBundleSettings": {
+      "enableExperienceBundleMetadata": true
+    },
+    "lightningExperienceSettings": {
+      "enableS1DesktopEnabled": true
+    },
+    "mobileSettings": {
+      "enableS1EncryptedStoragePref2": false
+    },
+    "userEngagementSettings": {
+      "enableShowSalesforceUserAssist": false
+    },
+    "userManagementSettings": {
+      "enableEnhancedPermsetMgmt": true,
+      "enableEnhancedProfileMgmt": true,
+      "enableNewProfileUI": true
+    },
+    "einsteinGptSettings": {
+      "enableEinsteinGptPlatform": true
+    }
+  }
+
+}

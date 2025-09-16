@@ -1,0 +1,13 @@
+{
+  "title" : "Omniscript_Step_Chart_AgentCall_the_Omniscript_Assistant_Agent",
+  "lightning:type" : "lightning__objectType",
+  "properties" : {
+    "AgentOutput" : {
+      "description" : "This is the output that the agent will generate.  I just want the text that the agent will return.",
+      "lightning:type" : "lightning__textType",
+      "title" : "AgentOutput"
+    }
+  },
+  "required" : [ "AgentOutput" ],
+  "lightning:tags" : [ "flow" ]
+}
