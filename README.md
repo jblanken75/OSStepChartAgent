@@ -3,6 +3,7 @@ This project includes a Lightning Web Component that overrides the standard Step
 
 ## What's included in the Project
 - LWC - osStepChartAgent - LWC that overrides the base Step Chart in an Omniscript and shows an Agent
+- LWC - osStepChartAgentWithSteps - Same LWC as osStepChart except this LWC inclues the out of the box step chart with a toggle to show the Agent
 - Flow - Omniscript_Step_Chart_Agent - Flow that is called from the LWC to interact with an Agent
 - Apex - OSAgentFlowInvoker - Apex Class that provides the connection between the LWC and the Flow
 - Lightning Type - OmniscriptStepChartAgentCalltheOmniscriptAssistantAgent - Used in the Omniscript_Step_Chart_Agent to retrieve responses from the Agent
@@ -35,7 +36,8 @@ This project includes a Lightning Web Component that overrides the standard Step
 
 ## How to add to other Omniscripts
 - Open an Omniscript and ensure that the Step Chart is enabled.  
-- Go to the Setup tab in the Omniscript.  Find the Element Type to LWC Mapping section.  Add a new entry and set ElementType to StepChart and Lightning Web Component to Lightning Web Component
+- Go to the Setup tab in the Omniscript.  Find the Element Type to LWC Mapping section.  Add a new entry and set ElementType to StepChart and Lightning Web Component to osStepChartAgent or osStepChartAgentWithSteps
+    - Use osStepChartAgentWithSteps if you want to show the steps and osStepChartAgent if you don't want to show the steps
 - Create a new topic in the Omniscript_Assistant agent with the same name as the Omnscript.  On the topic add whatever logic, actions, RAG, etc that you need to support the Omniscript.  The example Omniscript just has some basic instructions for a Licensing Scenario.
 - Ensure that the Omniscript has descriptive names for elements and not element names like Text1, Radio1, etc.  The more descriptive names will be assist the agent.
 
@@ -45,7 +47,6 @@ The osStepChartAgent overrides the Step Chart component of the Omniscript and re
 Once in the Flow, the Flow can use the Omniscript JSON to determine which Omniscript is in use.  The Flow then makes a call to the Omniscript Assistant Agent as a headless api call.  When sending the message, the Topic, the message from the end user, and the Omniscript JSON is sent over.  The Agent returns the result to the Flow and the Flow returns the result to the Agent running in the LWC.
 
 ## Thoughts for later versions
-- Incorporate the Out of the box Step chart with the LWC.  Currently the LWC replaces the Step Chart entirely
 - More detailed formatting for Mobile browsers
 - Ability to update the Omniscript details from the Agent.  This is technically feasible using the omniApplyCallResp method (https://help.salesforce.com/s/articleView?id=xcloud.os_map_responses_to_the_omniscript_s_data_json.htm&type=5).  The response from the flow would just need to send this to the LWC and the LWC would need to call the omniApplyCallResp method.  
 
