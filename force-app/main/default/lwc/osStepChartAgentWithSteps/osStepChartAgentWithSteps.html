@@ -1,0 +1,247 @@
+<template>
+  <slot>
+    <div if:false={isVertical}
+         class="slds-omniscript_stepform slds-size_1-of-1 slds-small-size_1-of-1 slds-large-size_8-of-12
+                slds-align_absolute-center slds-grid slds-m-top_xx-large slds-m-bottom_x-large">
+      <div class="slds-size_1-of-1">
+        <div class="slds-progress slds-size_1-of-1">
+          <ol class="slds-progress__list">
+            <template for:each={jsonDef.children}
+                      for:item="step"
+                      for:index="index">
+              <template if:true={step.isStep}>
+                <omnistudio-omniscript-step-chart-items key={step.name}
+                                               json-def={step}
+                                               is-vertical={isVertical}
+                                               json-data={jsonDef.response}
+                                               current-index={currentIndex}
+                                               script-header-def={scriptHeaderDef}>
+              </omnistudio-omniscript-step-chart-items>
+              </template>
+            </template>
+          </ol>
+          <div class="slds-progress-bar slds-progress-bar_x-small"
+               aria-valuemin="0"
+               aria-valuemax="100"
+               aria-valuenow={stepProgressValue}
+               role="progressbar">
+            <span class="slds-progress-bar__value">
+              <span class="slds-assistive-text">
+                Progress: {stepProgressValue}%
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div if:true={isVertical}
+         class="slds-m-top_medium slds-p-left_large">
+      <omnistudio-omniscript-formatted-rich-text class="slds-text-longform slds-path__guidance-content"
+                                        value={stepInstruction}>
+  </omnistudio-omniscript-formatted-rich-text>
+      <h1 class="slds-page-header__title slds-truncate omni-stepchart-heading">
+        Steps
+      </h1>
+      <div class="slds-progress slds-progress_vertical slds-p-vertical_medium">
+        <ol class="slds-progress__list">
+          <template for:each={jsonDef.children}
+                    for:item="step"
+                    for:index="index">
+            <template if:true={step.isStep}>
+              <omnistudio-omniscript-step-chart-items key={step.name}
+                                             json-def={step}
+                                             is-vertical={isVertical}
+                                             json-data={jsonDef.response}
+                                             class="slds-progress__item"
+                                             last-step-index={lastStepIndex}
+                                             last-executed-step-index={_lastExecutedStepIndex}
+                                             first-visible-step-index={firstVisibleStepIndex}
+                                             current-index={currentIndex}
+                                             script-header-def={scriptHeaderDef}>
+              </omnistudio-omniscript-step-chart-items>
+            </template>
+          </template>
+        </ol>
+        <div aria-valuemin="0"
+             aria-valuemax="100"
+             aria-valuenow={stepProgressValue}
+             role="progressbar">
+          <span class="slds-assistive-text">
+            Progress: {stepProgressValue}%
+          </span>
+        </div>
+      </div>
+    </div>
+  </slot>
+
+  <!--Embedded Agent-->
+<lightning-input
+    type="toggle"
+    label="Agent Assistant"
+    checked={isAgentEnabled}
+    message-toggle-active=""
+    message-toggle-inactive=""
+    onchange={handleAgentToggleChange}
+  ></lightning-input>
+  <template lwc:if={isAgentEnabled}>
+      <lightning-card>
+        <div class="slds-card__body slds-card__body_inner v3-card-body"> 
+            <!-- Voice Toolkit integration: render only on Voice Call records -->
+            <!--<template lwc:if={isVoiceChannel}>
+                <lightning-service-cloud-voice-toolkit-api
+                    oncallstarted={handleVoiceConversationEvent}
+                    oncallconnected={handleVoiceConversationEvent}
+                    oncallended={handleVoiceConversationEvent}
+                    ontranscript={handleVoiceConversationEvent}
+                    onerror={handleVoiceToolkitError}>
+                </lightning-service-cloud-voice-toolkit-api>
+            </template> -->
+            <!-- Embedded flow display -->
+            <!--<template lwc:if={activeFlowApiName}>
+                <div class="v3-flow-wrapper slds-m-bottom_small">
+                    <lightning-flow
+                        flow-api-name={activeFlowApiName}
+                        flow-input-variables={flowInputVariables}
+                        onstatuschange={handleFlowStatusChange}>
+                    </lightning-flow>
+                </div>
+            </template> -->
+
+            <!-- Chat container -->
+            <div class="v3-chat-container" style={containerStyle}>
+                <template lwc:if={hasMessages}>
+                    <ul class="v3-chat-list">
+                        <template for:each={formattedMessages} for:item="message">
+                            <li key={message.id} class={message.listItemClassV3} data-message-id={message.id}>
+                                <div class={message.messageRowClassV3}>
+                                    <template lwc:if={message.showAvatar}>
+                                        <div class="v3-avatar-container">
+                                            <lightning-avatar
+                                                fallback-icon-name={message.avatarIcon}
+                                                initials={message.avatarInitials}
+                                                size="small"
+                                                class={message.avatarClass}>
+                                            </lightning-avatar>
+                                        </div>
+                                    </template>
+                                    <div class="v3-message-content-wrapper">
+                                        <div class={message.bubbleClassV3} style={message.bubbleStyleV3}>
+                                            <!-- Main content: concise/full toggle -->
+                                            <template lwc:if={message.hasFullContent}>
+                                                <lightning-icon
+                                                    icon-name={message.iconToggleName}
+                                                    size="x-small"
+                                                    class="v3-toggle-view-icon"
+                                                    onclick={handleToggleView}
+                                                    data-message-id={message.id}
+                                                    title={message.iconToggleTitle}>
+                                                </lightning-icon>
+                                                <div data-message-id={message.id} class="v3-message-content">
+                                                    <div class={message.conciseContentClass}>
+                                                        <lightning-formatted-rich-text value={message.conciseText}></lightning-formatted-rich-text>
+                                                    </div>
+                                                    <div class={message.fullContentClass}>
+                                                        <lightning-formatted-rich-text value={message.fullText}></lightning-formatted-rich-text>
+                                                    </div>
+                                                </div>
+                                            </template>
+                                            <template lwc:else>
+                                                <lightning-formatted-rich-text value={message.conciseText}></lightning-formatted-rich-text>
+                                            </template>
+
+                                            <!-- Next Best Actions sections -->
+                                            <div class="v3-nba-container" lwc:if={message.hasAnyAction}>
+                                                <!-- Agent Suggestions -->
+                                                <div class="v3-nba-section" lwc:if={message.suggestedAgentActions.length}>
+                                                    <div class="v3-nba-heading-wrapper">
+                                                        <lightning-icon icon-name="utility:agent_astro" size="x-small" class="v3-nba-heading-icon"></lightning-icon>
+                                                        <h4 class="v3-nba-heading">Get Agentforce Support</h4>
+                                                    </div>
+                                                    <div class="v3-nba-buttons">
+                                                        <template for:each={message.suggestedAgentActions} for:item="action">
+                                                            <lightning-button key={action.id} label={action.label} title={action.label} data-message-id={message.id} data-action-id={action.id} onclick={handleAgentActionClick} variant={action.variant}></lightning-button>
+                                                        </template>
+                                                    </div>
+                                                </div>
+                                                <!-- User Flow Suggestions -->
+                                                <div class="v3-nba-section" lwc:if={message.suggestedUserActions.length}>
+                                                    <div class="v3-nba-heading-wrapper">
+                                                        <lightning-icon icon-name="utility:flow" size="x-small" class="v3-nba-heading-icon"></lightning-icon>
+                                                        <h4 class="v3-nba-heading">Recommended Actions</h4>
+                                                    </div>
+                                                    <div class="v3-nba-buttons">
+                                                        <template for:each={message.suggestedUserActions} for:item="action">
+                                                            <lightning-button key={action.id} label={action.label} title={action.label} data-message-id={message.id} data-action-id={action.id} onclick={handleUserActionClick} variant={action.variant}></lightning-button>
+                                                        </template>
+                                                    </div>
+                                                </div>
+                                                <!-- Executed Actions -->
+                                                <div class="v3-nba-section" lwc:if={message.executedAgentActions.length}>
+                                                    <div class="v3-nba-heading-wrapper">
+                                                        <lightning-icon icon-name="utility:check" size="x-small" class="v3-nba-heading-icon"></lightning-icon>
+                                                        <h4 class="v3-nba-heading">Actions taken automatically</h4>
+                                                    </div>
+                                                    <ul class="slds-list_vertical">
+                                                        <template for:each={message.executedAgentActions} for:item="action">
+                                                            <li key={action.id} class="v3-executed-action-item">
+                                                                <lightning-icon icon-name="utility:check" size="x-small" variant="success" class="slds-m-right_x-small"></lightning-icon>
+                                                                <span>{action.description}</span>
+                                                            </li>
+                                                        </template>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class={message.metaClassV3}>
+                                            <lightning-formatted-date-time
+                                                value={message.timestamp}
+                                                hour="2-digit" minute="2-digit" hour12="true">
+                                            </lightning-formatted-date-time>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </template>
+                    </ul>
+                </template>
+
+                <!-- Empty / thinking states -->
+                <template lwc:if={showLoader}>
+                    <div class="v3-thinking-indicator-message">
+                        <div class="v3-avatar-container">
+                            <lightning-avatar fallback-icon-name="utility:bot" size="small" class="assistant"></lightning-avatar>
+                        </div>
+                        <div class="v3-message-content-wrapper">
+                            <div class="slds-p-around_small">
+                                <span class="generating-ellipsis">Generating</span>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+
+            <!-- Manual input area -->
+            <template lwc:if={showChatInput}>
+                <div class="v3-chat-input-section slds-m-top_small">
+                    <div class="v3-chat-input-wrapper">
+                        <input
+                            type="text"
+                            class="v3-chat-input"
+                            placeholder="Ask the agent to help."
+                            value={chatInput}
+                            oninput={handleInputChange}
+                            onkeydown={handleInputKeyDown}/>
+                        <button class="v3-send-arrow" onclick={handleSend} title="Send Message">
+                            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"/>
+                                <polyline points="12 5 19 12 12 19"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+    </template>
+
+</template>

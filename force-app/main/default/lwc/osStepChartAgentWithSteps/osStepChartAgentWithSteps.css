@@ -1,0 +1,299 @@
+/* Cache-busting comment to force re-compilation */
+
+/* Container */
+.an-chat-container {
+    max-height: 350px;
+    overflow-y: auto;
+    padding: 0.75rem;
+    background: var(--slds-g-color-neutral-base-95, #f3f3f3);
+}
+
+/* Message bubbles */
+.an-message-bubble {
+    padding: 0.5rem 0.75rem;
+    border-radius: 1rem;
+    margin-bottom: 0.25rem;
+    display: inline-block;
+    max-width: 90%;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}
+
+.an-message-bubble.user {
+    background: var(--slds-g-color-neutral-base-100, #ffffff);
+    align-self: flex-end;
+}
+
+.an-message-bubble.assistant {
+    background: var(--slds-g-color-brand-base-90, #e8effd);
+}
+
+/* Input row */
+.an-input-row {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.an-input {
+    flex-grow: 1;
+}
+
+/* V3 style chat container for richer look */
+.v3-chat-container {
+    background-color: var(--slds-g-color-neutral-base-100, #f3f3f3);
+    border: 1px solid var(--slds-g-color-neutral-base-80, #c9c9c9);
+    border-radius: var(--slds-border-radius_medium, 0.5rem);
+    padding: var(--slds-spacing_small, 0.75rem);
+    overflow-y: auto;
+}
+
+.an-list-item {
+    list-style-type: none;
+} 
+
+/* === BEGIN NEW V3 STYLES === */
+.v3-card-body {
+    padding: var(--slds-spacing_small, 0.75rem);
+}
+
+.v3-controls-header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 0 var(--slds-spacing_x-small, 0.5rem);
+    box-sizing: border-box;
+}
+
+.v3-playback-controls-wrapper {
+    margin-left: auto;
+}
+
+/* Flow Confirmation Header overrides omitted for brevity */
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Chat Container */
+.v3-chat-container {
+    background-color: var(--slds-g-color-neutral-base-100, #f3f3f3);
+    border: 1px solid var(--slds-g-color-neutral-base-80, #c9c9c9);
+    border-radius: var(--slds-border-radius_medium, 0.5rem);
+    padding: var(--slds-spacing_small, 0.75rem);
+    overflow-y: auto;
+}
+
+.v3-chat-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--slds-spacing_small, 0.75rem);
+}
+
+.v3-chat-list-item {
+    display: flex;
+    max-width: 90%;
+}
+
+.v3-chat-list-item.user {
+    align-self: flex-end;
+}
+
+.v3-chat-list-item.assistant {
+    align-self: flex-start;
+}
+
+.v3-message-row {
+    display: flex;
+    align-items: flex-end;
+    width: 100%;
+}
+
+.v3-chat-list-item.user .v3-message-row {
+    flex-direction: row-reverse;
+}
+
+/* Avatar */
+.v3-avatar-container {
+    margin: 0 var(--slds-spacing_x-small, 0.5rem);
+    flex-shrink: 0;
+}
+
+/* Message bubbles */
+.v3-message-bubble {
+    padding: var(--slds-spacing_x-small, 0.5rem) var(--slds-spacing_small, 0.75rem);
+    border-radius: var(--slds-border-radius_large, 1rem);
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    font-size: var(--bubble-font-size, 0.875rem);
+    line-height: 1.4;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    position: relative;
+}
+
+.v3-message-bubble.user {
+    background-color: var(--slds-g-color-neutral-base-95, #e0e0e0);
+    color: var(--slds-g-color-neutral-base-10, #181818);
+}
+
+.v3-message-bubble.assistant {
+    background-color: var(--bubble-bg-color, #e8effd);
+    color: var(--bubble-text-color, #181818);
+}
+
+.v3-message-bubble.previous-assistant {
+    background-color: #f3f3f3;
+    color: #5a5a5a;
+}
+
+.v3-message-meta {
+    font-size: var(--slds-font-size-1, 0.6875rem);
+    color: var(--slds-g-color-neutral-base-50, #706e6b);
+    margin-top: var(--slds-spacing_xxx-small, 0.125rem);
+}
+
+/* Chat input */
+.v3-chat-input-section {
+    display: flex;
+    align-items: flex-end;
+    background-color: var(--slds-g-color-neutral-base-100, #ffffff);
+    padding: var(--slds-spacing_x-small, 0.5rem);
+    border-top: none;
+    margin-top: 0.5rem;
+    border-radius: 0 0 var(--slds-border-radius_medium, 0.5rem) var(--slds-border-radius_medium, 0.5rem);
+}
+
+.v3-chat-input-wrapper { position: relative; width: 100%; }
+.v3-chat-input {
+    width: 100%;
+    border-radius: 999px;
+    border: 1px solid #ccc;
+    font-size: 0.85rem;
+    padding: 0.75rem 2.5rem 0.75rem 1rem;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.v3-send-arrow {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    width: 32px;
+}
+
+/* Concise/Full content toggling */
+.v3-toggle-view-icon {
+    position: absolute;
+    right: var(--slds-spacing_x-small, 0.5rem);
+    bottom: var(--slds-spacing_x-small, 0.5rem);
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+}
+.v3-concise-content {
+    display: block; /* Show by default */
+}
+
+.v3-concise-content.collapsed {
+    display: none; /* Hide when expanded */
+}
+.v3-full-content {
+    display: none; /* Hide by default */
+}
+.v3-full-content.expanded {
+    display: block; /* Show when expanded */
+}
+/* === END NEW V3 STYLES === */
+
+.v3-nba-container {
+    border-top: 1px solid #dddbda;
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+}
+
+.v3-nba-section {
+    margin-bottom: 0.75rem;
+}
+
+.v3-nba-heading {
+    font-size: 0.8125rem;
+    font-weight: bold;
+    color: #3e3e3c;
+    line-height: 1; /* Aligns text better with flex-center */
+    margin: 0;
+}
+
+.v3-nba-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+}
+
+.v3-flow-wrapper {
+    border: 1px solid #dddbda;
+    border-radius: 0.25rem;
+    padding: 1rem;
+}
+
+.v3-nba-heading-wrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.v3-nba-heading-icon {
+    margin-right: 0.5rem;
+    --sds-c-icon-color-foreground-default: #54698d;
+}
+
+.v3-executed-action-item {
+    display: flex;
+    align-items: center;
+    font-size: 0.8125rem;
+    color: #3e3e3c;
+    margin-bottom: 0.25rem;
+}
+
+.generating-ellipsis::after {
+    display: inline-block;
+    animation: ellipsis 1.4s infinite;
+    animation-timing-function: steps(3, end);
+    content: "...";
+    width: 1.2em;
+    text-align: left;
+}
+
+.v3-thinking-indicator-message .v3-message-bubble.assistant {
+    box-shadow: none;
+}
+
+.agentic-nba-container {
+    background-color: var(--slds-g-color-neutral-base-100, #ffffff);
+    border-radius: var(--slds-border-radius_medium, 0.5rem);
+    position: relative; /* Required for absolute positioning of child elements */
+}
+
+@keyframes ellipsis {
+    0% {
+        content: "";
+    }
+    33% {
+        content: ".";
+    }
+    66% {
+        content: "..";
+    }
+    100% {
+        content: "...";
+    }
+}
