@@ -60,7 +60,7 @@ export default class OsStepChartAgent extends OmniscriptBaseMixin(omniscriptStep
     }
 
     disconnectedCallback() {
-        this._unsubscribeFromMessageChannels();
+      //  this._unsubscribeFromMessageChannels();
     }
 
     /* =============================================================
@@ -274,7 +274,7 @@ export default class OsStepChartAgent extends OmniscriptBaseMixin(omniscriptStep
                         // Response was not valid JSON, treat as plain text
                         this._showInputBox = true;
                         this._addMessage(result.response, ROLE_ASSISTANT);
-                        console.error('Failed to parse response JSON', e);
+                        console.log('Response was plain text', e);
                     }
                 }
             }
