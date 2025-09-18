@@ -275,7 +275,7 @@ export default class OsStepChartAgentWithSteps extends OmniscriptBaseMixin(omnis
                         // Response was not valid JSON, treat as plain text
                         this._showInputBox = true;
                         this._addMessage(result.response, ROLE_ASSISTANT);
-                        console.error('Failed to parse response JSON', e);
+                        console.log('Response was plain text', e);
                     }
                 }
             }
