@@ -6,7 +6,7 @@ This project includes a Lightning Web Component that overrides the standard Step
 - LWC - osStepChartAgentWithSteps - Same LWC as osStepChart except this LWC inclues the out of the box step chart with a toggle to show the Agent
 - Flow - Omniscript_Step_Chart_Agent - Flow that is called from the LWC to interact with an Agent
 - Apex - OSAgentFlowInvoker - Apex Class that provides the connection between the LWC and the Flow
-- Apex - OSAgentFlowInvoker - Based on current functionality, Experience Cloud users cannot call Invocable Agents directly.  This is expected at some point but this is a workaround that calls the Flow through an API
+- Apex - OSAgentFlowInvokerWorkaround - Based on current functionality, Experience Cloud users cannot call Invocable Agents directly.  This is expected at some point but this is a workaround that calls the Flow through an API
 - Lightning Type - OmniscriptStepChartAgentCalltheOmniscriptAssistantAgent - Used in the Omniscript_Step_Chart_Agent to retrieve responses from the Agent
 - Permission Set - OSStepChartAgentPermissions - Grants access to the OSAgentFlowInvoker Apex Class
 - genAIPlannerBundle - Omniscript_Assistant - Example Service Agent that is called from the Omniscript_Step_Chart_Agent Flow
