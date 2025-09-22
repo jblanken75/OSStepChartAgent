@@ -44,23 +44,21 @@ Create a Connected App and Named Credential using these steps:
     1. Go to Setup → External Client Apps → Settings
     2. Ensure that the Allow creation of connected toggle is enabled and Click the New Connected App button
     3. Set the following values:
-            1. Name: ConnectAPI
-            2. API Name: ConnectAPI
-            3. Contact Email: Your email address
-            4. Click the Enable OAuth Settings checkbox
-            5. Callback URL:  https://login.salesforce.com (Note we will come back and change this value)
-            6. Auth Scopes
-                1. Select 
-                    1. Full access (full) 
-                    2. Perform requests at any time (refresh token, offline access)
-            7. Click the Enable Client Credentials Flow
-                1. Click Ok on the popup window
-            8. Click Save and then click Continue
-            9. Click the Manage Consumer Detail button
-                1. Verify your identity through you email if required
-                2. Keep the screen with the Consumer Key and Consumer Secret open
-
-
+        1. Name: ConnectAPI
+        2. API Name: ConnectAPI
+        3. Contact Email: Your email address
+        4. Click the Enable OAuth Settings checkbox
+        5. Callback URL:  https://login.salesforce.com (Note we will come back and change this value)
+        6. Auth Scopes
+            1. Select 
+                1. Full access (full) 
+                2. Perform requests at any time (refresh token, offline access)
+        7. Click the Enable Client Credentials Flow
+            1. Click Ok on the popup window
+        8. Click Save and then click Continue
+        9. Click the Manage Consumer Detail button
+            1. Verify your identity through you email if required
+            2. Keep the screen with the Consumer Key and Consumer Secret open
 2. Create an Auth Provider
     1. Go to Setup → Auth. Providers
     2. Click the New button
