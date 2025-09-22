@@ -6,6 +6,7 @@ This project includes a Lightning Web Component that overrides the standard Step
 - LWC - osStepChartAgentWithSteps - Same LWC as osStepChart except this LWC inclues the out of the box step chart with a toggle to show the Agent
 - Flow - Omniscript_Step_Chart_Agent - Flow that is called from the LWC to interact with an Agent
 - Apex - OSAgentFlowInvoker - Apex Class that provides the connection between the LWC and the Flow
+- Apex - OSAgentFlowInvoker - Based on current functionality, Experience Cloud users cannot call Invocable Agents directly.  This is expected at some point but this is a workaround that calls the Flow through an API
 - Lightning Type - OmniscriptStepChartAgentCalltheOmniscriptAssistantAgent - Used in the Omniscript_Step_Chart_Agent to retrieve responses from the Agent
 - Permission Set - OSStepChartAgentPermissions - Grants access to the OSAgentFlowInvoker Apex Class
 - genAIPlannerBundle - Omniscript_Assistant - Example Service Agent that is called from the Omniscript_Step_Chart_Agent Flow
@@ -34,6 +35,72 @@ This project includes a Lightning Web Component that overrides the standard Step
 - Deploy the Omniscript_Step_Chart_Agent Flow 
 - You can also use the following command line in terminal replacing: ALIASORLOGIN with your Org's Alias or login:  sf project deploy start --source-dir force-app/main/default/flows --target-org ALIASORLOGIN
 - Assign the OSStepChartAgentPermissions Permission Set to any users that will use the component
+
+## Current Workaround for Experience Cloud users to use Invocable Agent Actions
+As noted in this [Help Article](https://help.salesforce.com/s/articleView?id=ai.agent_custom_invocable_action_flow_apex.htm&type=5), Experience Cloud users cannot directly invoke Invocable Agent Actions.  At some point this is exptected to be supported.  In the meantime this component includes a workaround to call the Flow through a Web Service.  Calling the Web Service requires some additional setup steps found below.  If for whatever reason this component does not need to work with Experience Cloud users then you do not need to perform the following steps.  If you do this then you will need to uncomment this line in the LWC js file:  import invokeFlow from '@salesforce/apex/OSAgentFlowInvoker.invokeFlow'; and comment out this one:  import invokeFlow from '@salesforce/apex/OSAgentFlowInvokerWorkaround.invokeFlow';
+
+Create a Connected App and Named Credential using these steps:
+1. Create a Connected App
+    1. Go to Setup → External Client Apps → Settings
+    2. Ensure that the Allow creation of connected toggle is enabled and Click the New Connected App button
+    3. Set the following values:
+            1. Name: ConnectAPI
+            2. API Name: ConnectAPI
+            3. Contact Email: Your email address
+            4. Click the Enable OAuth Settings checkbox
+            5. Callback URL:  https://login.salesforce.com (Note we will come back and change this value)
+            6. Auth Scopes
+                1. Select 
+                    1. Full access (full) 
+                    2. Perform requests at any time (refresh token, offline access)
+            7. Click the Enable Client Credentials Flow
+                1. Click Ok on the popup window
+            8. Click Save and then click Continue
+            9. Click the Manage Consumer Detail button
+                1. Verify your identity through you email if required
+                2. Keep the screen with the Consumer Key and Consumer Secret open
+
+
+2. Create an Auth Provider
+    1. Go to Setup → Auth. Providers
+    2. Click the New button
+    3. Select Salesforce as the Provider Type
+    4. Enter the following values:
+        1. Name: ConnectAPI
+        2. URL Suffix: ConnectAPI
+        3. Consumer Key: Paste from Step 9b above
+        4. Consumer Secret:  Paste from Step 9b above
+        5. Default Scopes: refresh_token full
+        6. Click Save
+        7. At the bottom of the screen find the Callback URL value and copy this value
+3. Update the Connected App
+    1. Go to Setup → App Manager
+    2. Find the ConnectAPI Connected app and click the View button on the right hand side of the list
+    3. Click the Edit button
+    4. Paste in the value from Step 2dvii above into the Callback URL field
+    5. Click the Save button and then click the Continue button
+4. Wait for 10 minutes to make sure that the Connected App has been updated
+5. Create the Named Credential
+    1. Go to Setup → Named Credential
+    2. Click the dropdown on the New button and select New Legacy
+    3. Set the following values:
+        1. Label: ConnectAPI
+        2. Name: ConnectAPI
+            1. Note you can select a different Name for the Named Credential.  If you do then you will need to update the CallExplainerService action of the Get Last Explainer Messages to match the name you select
+        3. URL: Your Domain Name followed by my.salesforce.com
+            1. Ex:  https://storm-2174aa3fc55207.my.salesforce.com
+                1. Note:  There may be issues if your domain name has .demo. in it.  If that’s the case then try adding .demo. before my.salesforce.com
+        4. Identity Type:  Named Principal
+        5. Authentication Protocol: Oauth 2.0
+        6. Authentication Provider:  ConnectAPI
+        7. Click Start Authentication Flow on Save
+        8. Click Allow Merge Fields in HTTP Header
+        9. Click Allow Merge Fields in HTTP Body
+    4. Click the Save button
+        1. Note if you receive an error message here, wait a few minutes and delete the Named Credential and try again.  Connected Apps can take up to 10 minutes to create
+    5. Enter your credentials to the Org
+    6. Click the Allow button
+    7. Click the Confirm button
 
 ## How to add to other Omniscripts
 - Open an Omniscript and ensure that the Step Chart is enabled.  
