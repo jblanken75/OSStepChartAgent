@@ -19,7 +19,7 @@ This project includes a Lightning Web Component that overrides the standard Step
 - The Omnistudio Managed Package must be enabled in the Org.  Note this is needed even if the Standard runtime and Standard Designers are used.
 
 ## Steps to install this in an Org
-- Ensure that all requisites are in place
+- Ensure that all prerequisites are in place
 - Deploy the components in the following order
     - classes
     - genAiPlugins
@@ -33,6 +33,7 @@ This project includes a Lightning Web Component that overrides the standard Step
 - In the Org assign an Einstein User to the Omniscript_Assistant Agent and activate the Agent.  
 - Deploy the Omniscript_Step_Chart_Agent Flow 
 - You can also use the following command line in terminal replacing: ALIASORLOGIN with your Org's Alias or login:  sf project deploy start --source-dir force-app/main/default/flows --target-org ALIASORLOGIN
+- Assign the OSStepChartAgentPermissions Permission Set to any users that will use the component
 
 ## How to add to other Omniscripts
 - Open an Omniscript and ensure that the Step Chart is enabled.  
