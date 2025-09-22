@@ -66,8 +66,8 @@ Create a Connected App and Named Credential using these steps:
     4. Enter the following values:
         1. Name: ConnectAPI
         2. URL Suffix: ConnectAPI
-        3. Consumer Key: Paste from Step 9b above
-        4. Consumer Secret:  Paste from Step 9b above
+        3. Consumer Key: Paste from Step ib above
+        4. Consumer Secret:  Paste from Step ib above
         5. Default Scopes: refresh_token full
         6. Click Save
         7. At the bottom of the screen find the Callback URL value and copy this value
@@ -114,5 +114,5 @@ Once in the Flow, the Flow can use the Omniscript JSON to determine which Omnisc
 
 ## Thoughts for later versions
 - More detailed formatting for Mobile browsers
-- Ability to update the Omniscript details from the Agent.  This is technically feasible using the omniApplyCallResp method (https://help.salesforce.com/s/articleView?id=xcloud.os_map_responses_to_the_omniscript_s_data_json.htm&type=5).  The response from the flow would just need to send this to the LWC and the LWC would need to call the omniApplyCallResp method.  
+- Ability to update the Omniscript details from the Agent.  This is technically feasible using the [omniApplyCallResp method](https://help.salesforce.com/s/articleView?id=xcloud.os_map_responses_to_the_omniscript_s_data_json.htm&type=5).  The response from the flow would just need to send this to the LWC and the LWC would need to call the omniApplyCallResp method.  
 
