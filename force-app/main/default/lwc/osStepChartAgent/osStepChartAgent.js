@@ -1,8 +1,7 @@
 import { LightningElement, api, track, wire } from 'lwc';
 import { subscribe, unsubscribe, APPLICATION_SCOPE, MessageContext } from 'lightning/messageService';
-//import ConversationEndUserChannel from '@salesforce/messageChannel/lightning__conversationEndUserMessage';
-//import ConversationAgentSendChannel from '@salesforce/messageChannel/lightning__conversationAgentSend';
-import invokeFlow from '@salesforce/apex/OSAgentFlowInvoker.invokeFlow';
+//import invokeFlow from '@salesforce/apex/OSAgentFlowInvoker.invokeFlow';
+import invokeFlow from '@salesforce/apex/OSAgentFlowInvokerWorkaround.invokeFlow';
 import { OmniscriptBaseMixin } from "omnistudio/omniscriptBaseMixin";
 
 import omniscriptStepChart from 'omnistudio/omniscriptStepChart';
@@ -336,82 +335,6 @@ export default class OsStepChartAgent extends OmniscriptBaseMixin(omniscriptStep
             this._sendRequestToFlow(messageText);
         }
     }
-
-    /* =============================================================
-     * Messaging Session LMS helpers
-     * =========================================================== */
-   // _subscribeToMessageChannels() {
-//    if (!this.messageContext) return;
-//
-//        if (this.sendEndUserConversation && !this.userLmsSubscription) {
-//            this.userLmsSubscription = subscribe(
-//                this.messageContext,
-//                ConversationEndUserChannel,
-//                (m) => this._handleLmsMessage(m, ROLE_USER /* treat as end user */),
-//                { scope: APPLICATION_SCOPE }
-//            );
-//        }
-//        if (this.sendAgentConversation && !this.agentLmsSubscription) {
-//            this.agentLmsSubscription = subscribe(
-//                this.messageContext,
-//                ConversationAgentSendChannel,
-//                (m) => this._handleLmsMessage(m, ROLE_USER /* treat as agent input */),
-//                { scope: APPLICATION_SCOPE }
-//            );
-//        }
-//    }
-
-//    _unsubscribeFromMessageChannels() {
-//        if (this.userLmsSubscription) {
-//            unsubscribe(this.userLmsSubscription);
-//            this.userLmsSubscription = null;
-//        }
-//        if (this.agentLmsSubscription) {
-//            unsubscribe(this.agentLmsSubscription);
-//            this.agentLmsSubscription = null;
-//        }
-//    }
-
-//    _handleLmsMessage(message, roleForDisplay) {
-//        if (!message || message.recordId !== this.recordId) return;
-//        const text = (message.content || '').trim();
-//        if (!text) return;
-
-//        this._sendRequestToFlow(text);
-//    } 
-
-    /* =============================================================
-     * Voice Toolkit handlers – mirror Messaging behavior
-     * =========================================================== */
-  /*  handleVoiceToolkitError(event) {
-        // Surface minimal error for diagnostics; no UI toast to keep UX clean
-        // eslint-disable-next-line no-console
-        console.error('Voice Toolkit API Error:', JSON.stringify(event?.detail || {}));
-    }
-
-    handleVoiceConversationEvent(event) {
-        if (!event || !event.type || !this.isVoiceChannel) return;
-        const eventType = event.type.replace(/^on/, '');
-
-        if (eventType === 'transcript') {
-            const rawText = event.detail?.content?.text || '';
-            const text = rawText.trim();
-            if (!text) return;
-
-            const roleRaw = event.detail?.sender?.role; // 'Agent' | 'Customer' | 'EndUser' | 'System'
-            const isAgent = roleRaw === 'Agent';
-            const isEndUser = roleRaw === 'Customer' || roleRaw === 'EndUser';
-
-            // Respect existing XML booleans for gating
-            if ((isAgent && !this.sendAgentConversation) || (isEndUser && !this.sendEndUserConversation)) {
-                return;
-            }
-
-            // Forward to Flow; do not display in UI
-            this._sendRequestToFlow(text);
-        }
-        // Other Voice events (callStarted/callConnected/callEnded) are ignored for messaging parity
-    } */
 
     /* =============================================================
      * Utility functions
