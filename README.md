@@ -44,6 +44,7 @@ This project includes a Lightning Web Component that overrides the standard Step
 - Deploy the Omniscript_Step_Chart_Agent Flow 
 - You can also use the following command line in terminal replacing: ALIASORLOGIN with your Org's Alias or login:  sf project deploy start --source-dir force-app/main/default/flows --target-org ALIASORLOGIN
 - Assign the OSStepChartAgentPermissions Permission Set to any users that will use the component
+      - This includes the Agent user, the user that is authenticated on the Named Credential and any Experience Cloud users that will use the component.
 
 ## Current Workaround for Experience Cloud users to use Invocable Agent Actions
 As noted in this [Help Article](https://help.salesforce.com/s/articleView?id=ai.agent_custom_invocable_action_flow_apex.htm&type=5), Experience Cloud users cannot directly invoke Invocable Agent Actions.  At some point this is exptected to be supported.  In the meantime this component includes a workaround to call the Flow through a Web Service.  Calling the Web Service requires some additional setup steps found below.  If for whatever reason this component does not need to work with Experience Cloud users then you do not need to perform the following steps.  If you do this then you will need to uncomment this line in the LWC js file:  import invokeFlow from '@salesforce/apex/OSAgentFlowInvoker.invokeFlow'; and comment out this one:  import invokeFlow from '@salesforce/apex/OSAgentFlowInvokerWorkaround.invokeFlow';
