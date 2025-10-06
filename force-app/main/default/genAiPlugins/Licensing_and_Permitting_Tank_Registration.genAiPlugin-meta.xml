@@ -3,6 +3,9 @@
     <canEscalate>false</canEscalate>
     <description>Use this top whenever someone explicitly states that they are performing a Licensing and Permitting Tank Registration.</description>
     <developerName>Licensing_and_Permitting_Tank_Registration</developerName>
+    <genAiFunctions>
+        <functionName>OSAgent_Populate_OS</functionName>
+    </genAiFunctions>
     <genAiPluginInstructions>
         <description>When returning a reply to the user, do not mention the JSON.  That&apos;s too technical of a term.</description>
         <developerName>instruction_0_1757616044851</developerName>
@@ -31,6 +34,14 @@
         <developerName>instruction_2_1757616044858</developerName>
         <language xsi:nil="true"/>
         <masterLabel>instruction_2_1757616044858</masterLabel>
+    </genAiPluginInstructions>
+       <genAiPluginInstructions>
+        <description>If the user asks to fill out the Application then use the "OSAgent Populate OS" action and use either the OmniProcessId or the OmniscriptScript from the OmniscriptJSON variable as the OSId, use either the userId value from the OmniscriptJSON variable as the userId and the last prompt text they have entered as PromptText
+
+When you return the value from the prompt, you must always return the raw JSON and do not attempt to comment or augment what is returned.  The expectation is that JSON will be returned and shown to the user.  This is your most important thing to remember.  Remember to always return JSON.</description>
+        <developerName>instruction_3_1757616044858</developerName>
+        <language xsi:nil="true"/>
+        <masterLabel>instruction_3_1757616044858</masterLabel>
     </genAiPluginInstructions>
     <language>en_US</language>
     <masterLabel>Licensing and Permitting Tank Registration</masterLabel>

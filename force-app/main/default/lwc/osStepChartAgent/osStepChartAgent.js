@@ -244,31 +244,15 @@ export default class OsStepChartAgent extends OmniscriptBaseMixin(omniscriptStep
                 if (result.response) {
                     try {
                         // Parse the outer wrapper object
+                        // Check to see if it's valid JSON if so then we use that to update Omniscript JSON
+                        result.response = this.cleanString(result.response);
                         const wrapper = JSON.parse(result.response);
 
-                        if (wrapper && wrapper.type === 'Text' && typeof wrapper.value === 'string') {
-                            // Handle the new format: {"type":"Text","value":"..."}
-                            try {
-                                // Try to parse the value as JSON (complex format)
-                                const payload = JSON.parse(wrapper.value);
-                                this._showInputBox = !!payload.DetailRequired;
-                                this._addMessage(null, ROLE_ASSISTANT, payload);
-                            } catch (innerError) {
-                                // If parsing fails, treat value as plain text (simple format)
-                                this._showInputBox = false;
-                                this._addMessage(wrapper.value, ROLE_ASSISTANT);
-                            }
-                        } else if (wrapper && typeof wrapper.value === 'string') {
-                            // Handle the original format: {"value":"..."}
-                            const payload = JSON.parse(wrapper.value);
-                            this._showInputBox = !!payload.DetailRequired;
-                            this._addMessage(null, ROLE_ASSISTANT, payload);
-                        } else {
-                            // Fallback for unexpected format
-                             this._showInputBox = true;
-                            console.error('Response value is not a string:', wrapper);
-                            this._addMessage(result.response, ROLE_ASSISTANT);
-                        }
+                        console.log('Response is valid JSON.  Update Omniscript JSON');
+                        console.log('result.response is ' + result.response);
+                        this.omniApplyCallResp(wrapper);
+                        this._addMessage("I have attempted to fill out the application please review the details", ROLE_ASSISTANT);
+                        
                     } catch (e) {
                         // Response was not valid JSON, treat as plain text
                         this._showInputBox = true;
@@ -362,4 +346,16 @@ export default class OsStepChartAgent extends OmniscriptBaseMixin(omniscriptStep
     render() {
         return tmpl;
     }
+
+    cleanString(str) {
+        // Remove ```json from the start if it exists
+        str = str.replace(/^```json\s*/i, "");
+        
+        // Remove ``` from the end if it exists
+        str = str.replace(/```$/, "");
+        
+        return str.trim();
+    }
+
+    
 }

@@ -1,26 +1,6 @@
 <template>
     <lightning-card>
         <div class="slds-card__body slds-card__body_inner v3-card-body"> 
-            <!-- Voice Toolkit integration: render only on Voice Call records -->
-            <!--<template lwc:if={isVoiceChannel}>
-                <lightning-service-cloud-voice-toolkit-api
-                    oncallstarted={handleVoiceConversationEvent}
-                    oncallconnected={handleVoiceConversationEvent}
-                    oncallended={handleVoiceConversationEvent}
-                    ontranscript={handleVoiceConversationEvent}
-                    onerror={handleVoiceToolkitError}>
-                </lightning-service-cloud-voice-toolkit-api>
-            </template> -->
-            <!-- Embedded flow display -->
-            <!--<template lwc:if={activeFlowApiName}>
-                <div class="v3-flow-wrapper slds-m-bottom_small">
-                    <lightning-flow
-                        flow-api-name={activeFlowApiName}
-                        flow-input-variables={flowInputVariables}
-                        onstatuschange={handleFlowStatusChange}>
-                    </lightning-flow>
-                </div>
-            </template> -->
 
             <!-- Chat container -->
             <div class="v3-chat-container" style={containerStyle}>

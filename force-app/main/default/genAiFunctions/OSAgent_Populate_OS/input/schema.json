@@ -1,0 +1,21 @@
+{
+  "required" : [ "Input:PromptText", "Input:OSId" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "Input:PromptText" : {
+      "title" : "PromptText",
+      "description" : "Pass in the Prompt Text",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "Input:OSId" : {
+      "title" : "OSId",
+      "description" : "Pass in the OSId",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}

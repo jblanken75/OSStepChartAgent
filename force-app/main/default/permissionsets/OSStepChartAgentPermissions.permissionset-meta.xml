@@ -8,6 +8,10 @@
         <apexClass>OSAgentFlowInvokerWorkaround</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+     <classAccesses>
+        <apexClass>OSAgentGetOSFromDM</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <hasActivationRequired>false</hasActivationRequired>
     <label>OSStepChartAgentPermissions</label>
 </PermissionSet>

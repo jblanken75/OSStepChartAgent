@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPromptTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionIdentifier>TSksq8i13nXNaVNmJndQau/VqAKGck0TUdjomeewSWc=_2</activeVersionIdentifier>
+    <description>Populates an Omniscript JSON for the OSAgent</description>
+    <developerName>OSAgent_Populate_OS</developerName>
+    <masterLabel>OSAgent Populate OS</masterLabel>
+    <templateVersions>
+        <content>Your job is to create well formed JSON. Only create the JSON, do not add any extra text
+
+Convert this JSON Structure:
+{!$Apex:OSAgentGetOSFromDM.Prompt}
+
+Into a more compact JSON structure. You will take each StepName and make that a top node and then each elements Name value into a child node. Some of the child nodes will have a child element as well. These elements will also use the name value. For example, this structure: {
+ &quot;elements&quot;: [
+ {
+  &quot;label&quot;: &quot;Text1&quot;,
+  &quot;type&quot;: &quot;Text&quot;,
+  &quot;Name&quot;: &quot;Text1&quot;
+ },
+ {
+  &quot;label&quot;: &quot;Block1&quot;,
+  &quot;type&quot;: &quot;Block&quot;,
+  &quot;Name&quot;: &quot;Block1&quot;,
+  &quot;child&quot;: {
+  &quot;label&quot;: &quot;Text2&quot;,
+  &quot;type&quot;: &quot;Text&quot;,
+  &quot;Name&quot;: &quot;Text2&quot;
+  }
+ }
+ ],
+ &quot;StepName&quot;: &quot;Step1&quot;
+}
+
+Should end up looking like this:
+&quot;Step1&quot;: {
+ &quot;Text1&quot;: null,
+ &quot;Block1&quot;: {
+  &quot;Text2&quot;: null
+ }
+
+
+Next take the {!$Input:PromptText} and look to see if any of the values match with the compact JSON structure. Use the Name and Label values to try to identify a match. The type value indicates the Data type of the element. A data type of Block or Edit Block can be consider an array so if the PromptText indicates multiple values then you can treat the child values as an array.  The options are the possible values that can go into the element. If something does not seem like a fit then just ignore it.  For example if the PromptText says something like &quot;for the Facility XYX&quot;, set the value of FacilityName to XYZ.  Use your best judgement about if a value matches with the JSON structure.  It doesn&apos;t have to be an exact match and you can be aggressive with assuming values.  
+
+
+Make sure that do not alter the structure of the compact JSON. You must never move child elements to a different parent.  
+
+The final output must only include elements that have a value other than null. Never include an element whose value is null. This is an absolute requirement. If an element has a value of null do not include it. For example if this is what the JSON looks like before you remove null values:
+{
+ &quot;SelectPermitType&quot;: {
+ &quot;PermitTypeSelection&quot;: null
+ },
+ &quot;Facility&quot;: {
+ &quot;FacilityDepRegistrationDate&quot;: null,
+ &quot;FacilityDepRegistrationNumber&quot;: null,
+ &quot;FacilityName&quot;: &quot;XYZ&quot;,
+ &quot;FacilityPhone&quot;: null,
+ &quot;PrimaryContactEmail&quot;: null,
+ &quot;TotalCapacityOfFacility&quot;: null
+ },
+ &quot;TankDetails&quot;: {
+ &quot;NominalCapacityOfTank&quot;: 150
+ },
+ &quot;Applicant&quot;: {
+ &quot;ApplicantName&quot;: null
+ }
+}
+Then this should be the final version of the JSON with the null values removed:
+{,
+ &quot;Facility&quot;: {
+ &quot;FacilityName&quot;: &quot;XYZ&quot;
+ },
+ &quot;TankDetails&quot;: {
+ &quot;NominalCapacityOfTank&quot;: 150
+ }
+}
+
+
+</content>
+        <inputs>
+            <apiName>OSId</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>OSId</masterLabel>
+            <referenceName>Input:OSId</referenceName>
+            <required>true</required>
+        </inputs>
+        <inputs>
+            <apiName>PromptText</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>PromptText</masterLabel>
+            <referenceName>Input:PromptText</referenceName>
+            <required>true</required>
+        </inputs>
+        <primaryModel>sfdc_ai__DefaultGPT5</primaryModel>
+        <status>Published</status>
+        <templateDataProviders>
+            <definition>apex://OSAgentGetOSFromDM</definition>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>OSId</parameterName>
+                <valueExpression>{!$Input:OSId}</valueExpression>
+            </parameters>
+            <referenceName>Apex:OSAgentGetOSFromDM</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>TSksq8i13nXNaVNmJndQau/VqAKGck0TUdjomeewSWc=_1</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>Your job is to create well formed JSON. Only create the JSON, do not add any extra text
+
+Convert this JSON Structure:
+{!$Apex:OSAgentGetOSFromDM.Prompt}
+
+Into a more compact JSON structure. You will take each StepName and make that a top node and then each elements Name value into a child node. The only exception to this is if the type of the element is Type Ahead Block.  If it is a Type Ahead Block element then set the name to Name-Block.  For example, if this is the element:  &quot;Name&quot;:&quot;FacilityAddress&quot;,&quot;type&quot;:&quot;Type Ahead Block&quot;,&quot;label&quot;:&quot;Facility Address&quot; then you would set the name to FacilityAddress-Block.  Some of the child nodes will have a child element as well. These elements will also use the name value. For example, this structure: {
+ &quot;elements&quot;: [
+ {
+  &quot;label&quot;: &quot;Text1&quot;,
+  &quot;type&quot;: &quot;Text&quot;,
+  &quot;Name&quot;: &quot;Text1&quot;
+ },
+ {
+  &quot;label&quot;: &quot;Block1&quot;,
+  &quot;type&quot;: &quot;Block&quot;,
+  &quot;Name&quot;: &quot;Block1&quot;,
+  &quot;child&quot;: {
+  &quot;label&quot;: &quot;Text2&quot;,
+  &quot;type&quot;: &quot;Text&quot;,
+  &quot;Name&quot;: &quot;Text2&quot;
+  }
+ }
+ ],
+ &quot;StepName&quot;: &quot;Step1&quot;
+}
+
+Should end up looking like this:
+&quot;Step1&quot;: {
+ &quot;Text1&quot;: null,
+ &quot;Block1&quot;: {
+  &quot;Text2&quot;: null
+ }
+
+
+Next take the {!$Input:PromptText} and look to see if any of the values match with the compact JSON structure. Use the Name and Label values to try to identify a match. The type value indicates the Data type of the element. A data type of Block or Edit Block can be consider an array so if the PromptText indicates multiple values then you can treat the child values as an array.  The options are the possible values that can go into the element. If something does not seem like a fit then just ignore it.  For example if the PromptText says something like &quot;for the Facility XYX&quot;, set the value of FacilityName to XYZ.  Use your best judgement about if a value matches with the JSON structure.  It doesn&apos;t have to be an exact match and you can be aggressive with assuming values.  
+
+
+Make sure that do not alter the structure of the compact JSON. You must never move child elements to a different parent.  
+
+The final output must only include elements that have a value other than null. Never include an element whose value is null. This is an absolute requirement. If an element has a value of null do not include it. For example if this is what the JSON looks like before you remove null values:
+{
+ &quot;SelectPermitType&quot;: {
+ &quot;PermitTypeSelection&quot;: null
+ },
+ &quot;Facility&quot;: {
+ &quot;FacilityDepRegistrationDate&quot;: null,
+ &quot;FacilityDepRegistrationNumber&quot;: null,
+ &quot;FacilityName&quot;: &quot;XYZ&quot;,
+ &quot;FacilityPhone&quot;: null,
+ &quot;PrimaryContactEmail&quot;: null,
+ &quot;TotalCapacityOfFacility&quot;: null
+ },
+ &quot;TankDetails&quot;: {
+ &quot;NominalCapacityOfTank&quot;: 150
+ },
+ &quot;Applicant&quot;: {
+ &quot;ApplicantName&quot;: null
+ }
+}
+Then this should be the final version of the JSON with the null values removed:
+{,
+ &quot;Facility&quot;: {
+ &quot;FacilityName&quot;: &quot;XYZ&quot;
+ },
+ &quot;TankDetails&quot;: {
+ &quot;NominalCapacityOfTank&quot;: 150
+ }
+}
+
+
+</content>
+        <inputs>
+            <apiName>OSId</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>OSId</masterLabel>
+            <referenceName>Input:OSId</referenceName>
+            <required>true</required>
+        </inputs>
+        <inputs>
+            <apiName>PromptText</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>PromptText</masterLabel>
+            <referenceName>Input:PromptText</referenceName>
+            <required>true</required>
+        </inputs>
+        <primaryModel>sfdc_ai__DefaultGPT5</primaryModel>
+        <status>Published</status>
+        <templateDataProviders>
+            <definition>apex://OSAgentGetOSFromDM</definition>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>OSId</parameterName>
+                <valueExpression>{!$Input:OSId}</valueExpression>
+            </parameters>
+            <referenceName>Apex:OSAgentGetOSFromDM</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>TSksq8i13nXNaVNmJndQau/VqAKGck0TUdjomeewSWc=_2</versionIdentifier>
+    </templateVersions>
+    <type>einstein_gpt__flex</type>
+    <visibility>Global</visibility>
+</GenAiPromptTemplate>
