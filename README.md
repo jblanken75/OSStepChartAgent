@@ -7,22 +7,30 @@ This project includes a Lightning Web Component that overrides the standard Step
 - Flow - Omniscript_Step_Chart_Agent - Flow that is called from the LWC to interact with an Agent
 - Apex - OSAgentFlowInvoker - Apex Class that provides the connection between the LWC and the Flow
 - Apex - OSAgentFlowInvokerWorkaround - Based on current functionality, Experience Cloud users cannot call Invocable Agents directly.  This is expected at some point but this is a workaround that calls the Flow through an API
+- Apex - OSAgentGetOSFromDM - Calls a Data Mapper to get the structure of an Omniscript.  This is used when the agent needs to populate the Omniscript’s JSON structure.
 - Lightning Type - OmniscriptStepChartAgentCalltheOmniscriptAssistantAgent - Used in the Omniscript_Step_Chart_Agent to retrieve responses from the Agent
 - Permission Set - OSStepChartAgentPermissions - Grants access to the OSAgentFlowInvoker Apex Class
+- genAIFunction - OSAgent_Populate_OS - Agent Action that calls the OSAgent_Populate_OS prompt template.  The intent is to take the output of this and update the JSON of the Omniscript.  
 - genAIPlannerBundle - Omniscript_Assistant - Example Service Agent that is called from the Omniscript_Step_Chart_Agent Flow
 - genAIPlugin - Licensing_and_Permitting_Tank_Registration - Example Agent Topic included in the Omniscript_Assistant agent.  
+- genAIPromptTemplate - OSAgent_Populate_OS - Prompt template that generates JSON for setting the Omniscript JSON.  
+- omniDataTransforms - OSAgentGetOSDetails - Data Mapper that extracts the structure of the Omniscript.  This is used to update the Omniscript JSON for Agents embedded in an Omniscript.
 - bot - Omniscript_Assistant - Bot that works in conjunction with the Omniscript_Assistant Agent
 
 ## Prerequisites for the Org
 - Agentforce must be enabled in the Org
 - Licenses for Omnistudio must in the Org
+    - The Agent User and the user associated with the Named Credential will need an Omnistudio License.
 - Omnistudio Metadata must be enabled
 - The Omnistudio Managed Package must be enabled in the Org.  Note this is needed even if the Standard runtime and Standard Designers are used.
 
 ## Steps to install this in an Org
 - Ensure that all prerequisites are in place
 - Deploy the components in the following order
-    - classes
+    -  classes
+    - omniDataTransforms
+    - genAIPromptTemplates
+    - genAIFunctions
     - genAiPlugins
     - genAIPlannerBundles
     - bots
@@ -30,6 +38,7 @@ This project includes a Lightning Web Component that overrides the standard Step
     - lightningTypes
     - lwc
     - permissionsets
+
     - You can also use the following command line in terminal replacing: ALIASORLOGIN with your Org's Alias or login:  sf project deploy start --source-dir force-app/main/default/classes force-app/main/default/genAiPlugins force-app/main/default/genAiPlannerBundles force-app/main/default/bots force-app/main/default/omniScripts force-app/main/default/lightningTypes force-app/main/default/lwc force-app/main/default/permissionsets  --target-org ALIASORLOGIN
 - In the Org assign an Einstein User to the Omniscript_Assistant Agent and activate the Agent.  
 - Deploy the Omniscript_Step_Chart_Agent Flow 
@@ -105,6 +114,13 @@ Create a Connected App and Named Credential using these steps:
 - Go to the Setup tab in the Omniscript.  Find the Element Type to LWC Mapping section.  Add a new entry and set ElementType to StepChart and Lightning Web Component to osStepChartAgent or osStepChartAgentWithSteps
     - Use osStepChartAgentWithSteps if you want to show the steps and osStepChartAgent if you don't want to show the steps
 - Create a new topic in the Omniscript_Assistant agent with the same name as the Omnscript.  On the topic add whatever logic, actions, RAG, etc that you need to support the Omniscript.  The example Omniscript just has some basic instructions for a Licensing Scenario.
+        - In this new topic use the Licensing and Permitting Tank Registration Topic as an example
+        - Make sure to add the OSAgent_OS_Populate action to the agent and add this instruction:
+        If the user asks to fill out the Application then use the "OSAgent Populate OS" action and use either the OmniProcessId or the OmniscriptScript from the OmniscriptJSON variable as the OSId, use either the userId value from the OmniscriptJSON variable as the userId and the last prompt text they have entered as PromptText
+        
+        When you return the value from the prompt, you must always return the raw JSON and do not attempt to comment or augment what is returned. The expectation is that JSON will be returned and shown to the user. This is your most important thing to remember. Remember to always return JSON.
+
+
 - Ensure that the Omniscript has descriptive names for elements and not element names like Text1, Radio1, etc.  The more descriptive names will be assist the agent.
 
 ## How this component works
@@ -112,7 +128,9 @@ The osStepChartAgent overrides the Step Chart component of the Omniscript and re
 
 Once in the Flow, the Flow can use the Omniscript JSON to determine which Omniscript is in use.  The Flow then makes a call to the Omniscript Assistant Agent as a headless api call.  When sending the message, the Topic, the message from the end user, and the Omniscript JSON is sent over.  The Agent returns the result to the Flow and the Flow returns the result to the Agent running in the LWC.
 
+When the user specifically asks the agent to fill out the application, an instruction in the topic makes a call to the OSAgent_Populate_OS Prompt Template.  This Prompt Template takes the content of the Prompt submitted by the user and looks up the structure of the Omniscript.  The Prompt them attempts to match up values with the Omniscript JSON structure.  Once complete and the response returns to the LWC, the LWC looks at the structure and if it is a valid JSON structure attempts to update the Omniscript JSON.  
+
 ## Thoughts for later versions
 - More detailed formatting for Mobile browsers
-- Ability to update the Omniscript details from the Agent.  This is technically feasible using the [omniApplyCallResp method](https://help.salesforce.com/s/articleView?id=xcloud.os_map_responses_to_the_omniscript_s_data_json.htm&type=5).  The response from the flow would just need to send this to the LWC and the LWC would need to call the omniApplyCallResp method.  
+ 
 
