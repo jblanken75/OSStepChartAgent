@@ -23,7 +23,7 @@ export default class OsStepChartAgentWithSteps extends OmniscriptBaseMixin(omnis
 
     // New: configurable Flow API Name; default is also set in metadata
     @api flowApiName = '';;
-
+    
     @track messages = [];
     @track chatInput = '';
     @track isThinking = false;
@@ -34,6 +34,7 @@ export default class OsStepChartAgentWithSteps extends OmniscriptBaseMixin(omnis
 
     _sessionId = '';
     _isInitiallyLoading = false;
+    panelTitle = 'Agent assistant';
 
     @wire(MessageContext) messageContext;
 
@@ -162,6 +163,10 @@ export default class OsStepChartAgentWithSteps extends OmniscriptBaseMixin(omnis
 
     get isThinkingLatestMessage() {
         return this.isThinking && this.hasMessages;
+    }
+
+    get agentButtonLabel() {
+        return this.isAgentEnabled ? 'Hide Agent' : 'Show Agent';
     }
 
     /* =============================================================
@@ -346,7 +351,7 @@ export default class OsStepChartAgentWithSteps extends OmniscriptBaseMixin(omnis
 
     //JB Added
     handleAgentToggleChange(event) {
-        this.isAgentEnabled = event.target.checked;
+        this.isAgentEnabled = !this.isAgentEnabled;
     }
 
     render() {

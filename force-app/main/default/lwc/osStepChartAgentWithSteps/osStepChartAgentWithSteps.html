@@ -3,8 +3,8 @@
     <div if:false={isVertical}
          class="slds-omniscript_stepform slds-size_1-of-1 slds-small-size_1-of-1 slds-large-size_8-of-12
                 slds-align_absolute-center slds-grid slds-m-top_xx-large slds-m-bottom_x-large"> 
-      <div class="slds-size_1-of-1">
-        <div class="slds-progress slds-size_1-of-1">
+      <div class="slds-size_1-of-1 slds-grid">
+        <div class="slds-progress slds-size_11-of-12">
           <ol class="slds-progress__list">
             <template for:each={jsonDef.children}
                       for:item="step"
@@ -32,16 +32,36 @@
             </span>
           </div>
         </div>
+        <div class="slds-size_1-of-12">
+            <lightning-button-icon-stateful 
+                alternative-text={agentButtonLabel}
+                icon-name="utility:agent_astro" 
+                selected={isAgentEnabled} 
+                size="x-small" 
+                onclick={handleAgentToggleChange}
+            >
+            </lightning-button-icon-stateful>
+        </div>
       </div>
     </div> 
     <div if:true={isVertical}
-         class="slds-m-top_medium slds-p-left_large"> 
+         class="slds-m-top_medium slds-p-left_large slds-p-right_x-small"> 
+        <div class="slds-grid slds-grid_vertical-align-start">
+            <h1 class="slds-col slds-page-header__title slds-truncate omni-stepchart-heading">
+              Steps
+            </h1>
+            <lightning-button-icon-stateful
+                alternative-text={agentButtonLabel}
+                icon-name="utility:agent_astro" 
+                selected={isAgentEnabled} 
+                onclick={handleAgentToggleChange}
+            >
+            </lightning-button-icon-stateful>
+        </div>
       <omnistudio-omniscript-formatted-rich-text class="slds-text-longform slds-path__guidance-content"
                                         value={stepInstruction}>
   </omnistudio-omniscript-formatted-rich-text>
-      <h1 class="slds-page-header__title slds-truncate omni-stepchart-heading">
-        Steps
-      </h1>
+
       <div class="slds-progress slds-progress_vertical slds-p-vertical_medium">
         <ol class="slds-progress__list">
           <template for:each={jsonDef.children}
@@ -71,24 +91,24 @@
           </span>
         </div>
       </div>
+
     </div>
   </slot>
 
-  <!--Embedded Agent-->
-<lightning-input
-    type="toggle"
-    label="Agent Assistant"
-    checked={isAgentEnabled}
-    message-toggle-active=""
-    message-toggle-inactive=""
-    onchange={handleAgentToggleChange}
-  ></lightning-input>
-  <template lwc:if={isAgentEnabled}>
-      <lightning-card>
-        <div class="slds-card__body slds-card__body_inner v3-card-body"> 
 
+  <!--Embedded Agent-->
+  <template lwc:if={isAgentEnabled}>
+    <div class="slds-panel slds-size_medium slds-panel_docked slds-panel_docked-right agent-panel">
+        <div class="slds-panel__header agent-panel-header">
+            <h2 class="slds-panel__header-title slds-text-heading_small slds-truncate" title={panelTitle}>{panelTitle}</h2>
+            <div class="slds-panel__header-actions">
+                <lightning-button-icon label="close" icon-name="utility:close" variant="bare" class="slds-panel__close" onclick={handleAgentToggleChange}>
+                </lightning-button-icon>
+            </div>
+        </div>
+        <div class="slds-panel__body slds-grid slds-grid_vertical agent-panel-body">
             <!-- Chat container -->
-            <div class="v3-chat-container" style={containerStyle}>
+            <div class="v3-chat-container agent-panel-chatbody">
                 <template lwc:if={hasMessages}>
                     <ul class="v3-chat-list">
                         <template for:each={formattedMessages} for:item="message">
@@ -187,7 +207,7 @@
 
                 <!-- Empty / thinking states -->
                 <template lwc:if={showLoader}>
-                    <div class="v3-thinking-indicator-message">
+                    <div class="v3-thinking-indicator-message agent-panel-chatbody agent-panel-template">
                         <div class="v3-avatar-container">
                             <lightning-avatar fallback-icon-name="utility:bot" size="small" class="assistant"></lightning-avatar>
                         </div>
@@ -221,7 +241,9 @@
                 </div>
             </template>
         </div>
-    </lightning-card>
-    </template>
+    </div>
+</template>  
+
+
 
 </template>
